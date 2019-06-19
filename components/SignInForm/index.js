@@ -1,7 +1,11 @@
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import { FormattedMessage } from "react-intl";
 import Link from "next/link";
-
+import styled from "styled-components";
+import { StyledForm, StyledButton } from "../Layout/style";
+const StyledA = styled.a`
+  float: right;
+`;
 class SignInForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
@@ -25,7 +29,7 @@ class SignInForm extends React.Component {
     }
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <StyledForm onSubmit={this.handleSubmit}>
         <Form.Item>
           {getFieldDecorator("email", {
             rules: [
@@ -76,22 +80,18 @@ class SignInForm extends React.Component {
           )}
 
           <Link href={`/forgot-password`}>
-            <a className="login-form-forgot">
+            <StyledA>
               <FormattedMessage
                 id="password.forgot"
                 defaultMessage="Forgot password"
               />
-            </a>
+            </StyledA>
           </Link>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-          >
+          <StyledButton type="primary" htmlType="submit">
             <FormattedMessage id="signIn" defaultMessage="Sign In" />
-          </Button>
+          </StyledButton>
         </Form.Item>
-      </Form>
+      </StyledForm>
     );
   }
 }

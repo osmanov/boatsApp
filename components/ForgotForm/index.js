@@ -1,6 +1,6 @@
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input } from "antd";
 import { FormattedMessage } from "react-intl";
-
+import { StyledForm, StyledButton } from "../Layout/style";
 class ForgotForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
@@ -17,10 +17,9 @@ class ForgotForm extends React.Component {
       form: { getFieldDecorator },
       initialValue
     } = this.props;
-    // const { getFieldDecorator } = this.props.form;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <StyledForm onSubmit={this.handleSubmit}>
         <Form.Item>
           {getFieldDecorator("email", {
             initialValue,
@@ -47,10 +46,14 @@ class ForgotForm extends React.Component {
           })(<Input prefix={<Icon type="mail" />} />)}
         </Form.Item>
 
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <StyledButton
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+        >
           <FormattedMessage id="recover" defaultMessage="Recover" />
-        </Button>
-      </Form>
+        </StyledButton>
+      </StyledForm>
     );
   }
 }
