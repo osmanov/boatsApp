@@ -1,27 +1,51 @@
 import React from "react";
 import Layout from "../components/Layout";
-import Form from "../components/Form";
-import messages from "../lang";
-import { IntlProvider, FormattedMessage } from "react-intl";
-import { addAppLocaleData } from "../localeData";
-addAppLocaleData();
+import Dashboard from "../components/Dashboard";
+import SignInForm from "../components/SignInForm";
 
 export default class Home extends React.Component {
   componentDidMount() {
-    const detectBrowserLanguage = require("detect-browser-language");
-    this.setState({ locale: detectBrowserLanguage() });
+    if (!localStorage.getItem("password")) {
+      this.removeMemory();
+    }
+    this.setState({
+      isLogged:
+        localStorage.getItem("email") && localStorage.getItem("password")
+    });
   }
-
+  handleSignInFormSubmit = (err, values) => {
+    if (!err) {
+      localStorage.setItem("password", values.password);
+      localStorage.setItem("email", values.email);
+      this.setState({ isLogged: true });
+    } else {
+      if (!err.email) {
+        localStorage.setItem("email", values.email);
+      } else {
+        localStorage.removeItem("email");
+      }
+    }
+  };
+  removeMemory() {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+  }
+  handleLogout = () => {
+    this.removeMemory();
+    this.setState({ isLogged: false });
+  };
   render() {
-    if (!this.state) return null;
-    const { locale } = this.state;
-
     return (
-      <IntlProvider locale={locale} messages={messages[locale]}>
-        <Layout>
-          <Form />
-        </Layout>
-      </IntlProvider>
+      <Layout>
+        {this.state && this.state.isLogged ? (
+          <Dashboard
+            onLogout={this.handleLogout}
+            userEmail={localStorage.getItem("email")}
+          />
+        ) : (
+          <SignInForm onSubmit={this.handleSignInFormSubmit} />
+        )}
+      </Layout>
     );
   }
 }

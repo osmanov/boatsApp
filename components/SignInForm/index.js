@@ -1,18 +1,29 @@
 import { Form, Icon, Input, Button, Checkbox } from "antd";
 import { FormattedMessage } from "react-intl";
 import Link from "next/link";
-class NormalLoginForm extends React.Component {
+
+class SignInForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-      }
+    const { form, onSubmit } = this.props;
+    form.validateFields((err, values) => {
+      onSubmit(err, values);
     });
   };
 
   render() {
-    const { getFieldDecorator, intl } = this.props.form;
+    const {
+      getFieldDecorator,
+      getFieldError,
+      isFieldTouched,
+      getFieldValue
+    } = this.props.form;
+    const emailError = isFieldTouched("email") && getFieldError("email");
+    if (!emailError) {
+      const emailValue = getFieldValue("email");
+      emailValue && localStorage.setItem("email", emailValue);
+    }
+
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Item>
@@ -85,8 +96,6 @@ class NormalLoginForm extends React.Component {
   }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: "normal_login" })(
-  NormalLoginForm
-);
+const WrappedSignInForm = Form.create({ name: "normal_login" })(SignInForm);
 
-export default WrappedNormalLoginForm;
+export default WrappedSignInForm;
