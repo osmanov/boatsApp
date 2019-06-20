@@ -11,7 +11,7 @@ const AnyReactComponent = ({ text }) => (
   <div
     style={{
       color: "white",
-      background: "grey",
+      background: "orange",
       padding: "15px 10px",
       display: "inline-flex",
       textAlign: "center",
@@ -27,27 +27,37 @@ const AnyReactComponent = ({ text }) => (
 
 class SimpleMap extends React.Component {
   static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
     zoom: 11
   };
-
+  state = {
+    lat: 59.95,
+    lng: 30.33,
+    text: "Kreyser Avrora"
+  };
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+          text: "your location"
+        });
+      },
+      error => console.log(error)
+    );
+  }
   render() {
+    const { zoom } = this.props;
+    const { lat, lng, text } = this.state;
     return (
-      // Important! Always set the container height explicitly
       <div style={{ height: "100vh", width: "100%" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyDF1wY_kMknsC-SE12j407cJb5G7_ULQBA" }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={{ lat, lng }}
+          defaultZoom={zoom}
+          center={{ lat, lng }}
         >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text={"Kreyser Avrora"}
-          />
+          <AnyReactComponent lat={lat} lng={lng} text={text} />
         </GoogleMapReact>
       </div>
     );
