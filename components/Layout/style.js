@@ -15,6 +15,9 @@ export const StyledForm = styled(Form)`
     width: 100%;
   }
   border-radius: 3px;
+  input {
+    font-size: 16px;
+  }
 `;
 export const StyledButton = styled(Button)`
   width: 100%;
