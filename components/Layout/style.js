@@ -11,6 +11,9 @@ export const StyledForm = styled(Form)`
   background: #fff;
   width: 400px;
   padding: 15px;
+  @media (max-width: 425px) {
+    width: 100%;
+  }
   border-radius: 3px;
 `;
 export const StyledButton = styled(Button)`
