@@ -1,4 +1,4 @@
-import { Form, Icon, Input, Button, Checkbox } from "antd";
+import { Form, Icon, Input, Checkbox } from "antd";
 import { FormattedMessage } from "react-intl";
 import Link from "next/link";
 import styled from "styled-components";

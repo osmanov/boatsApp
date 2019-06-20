@@ -22,3 +22,7 @@ export const StyledForm = styled(Form)`
 export const StyledButton = styled(Button)`
   width: 100%;
 `;
+
+export const StyledWrapperFullWidth = styled.div`
+  width: 100%;
+`;

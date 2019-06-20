@@ -2,6 +2,8 @@ import React from "react";
 import Layout from "../components/Layout";
 import { FormattedMessage } from "react-intl";
 import ForgotForm from "../components/ForgotForm";
+import { StyledWrapperFullWidth } from "../components/Layout/style";
+import { Alert } from "antd";
 
 export default class ForgotPassword extends React.Component {
   componentDidMount() {
@@ -12,12 +14,17 @@ export default class ForgotPassword extends React.Component {
   }
   renderSubmittedSection = () => {
     return (
-      <h1>
-        <FormattedMessage
-          id="info.recover"
-          defaultMessage="We sent a new password to your email"
+      <StyledWrapperFullWidth>
+        <Alert
+          message={
+            <FormattedMessage
+              id="info.recover"
+              defaultMessage="We sent a new password to your email"
+            />
+          }
+          type="success"
         />
-      </h1>
+      </StyledWrapperFullWidth>
     );
   };
   handleForgotFormSubmit = () => {
