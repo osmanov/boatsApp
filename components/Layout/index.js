@@ -6,6 +6,7 @@ import { addAppLocaleData } from "../../localeData";
 addAppLocaleData();
 import styled from "styled-components";
 import GoogleMapReact from "google-map-react";
+import Head from "next/head";
 import { StyledFormWrapper } from "./style";
 const AnyReactComponent = ({ text }) => (
   <div
@@ -82,6 +83,12 @@ export default class Layout extends React.Component {
     return (
       <IntlProvider locale={locale} messages={messages[locale]}>
         <Wrapper>
+          <Head>
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
+          </Head>
           <SimpleMap />
           <StyledFormWrapper>{children}</StyledFormWrapper>
         </Wrapper>
